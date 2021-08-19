@@ -1,4 +1,3 @@
 class ChainInfo:
     def __init__(self):
-        self.network = "bsc"
-
+        self.network = "ethereum"
