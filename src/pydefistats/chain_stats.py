@@ -142,15 +142,17 @@ def getHolders(network, contract: str):
     for x in receivers:
         list_of_receivers.append(x["receiver"]["address"])
     list_of_receivers = str(list_of_receivers).replace("\'", "\"")
+    ##Test
+    print(list_of_receivers)
     
     transport = AIOHTTPTransport(url="https://graphql.bitquery.io")
     client = Client(transport=transport, fetch_schema_from_transport=True)
     query = gql(
     """
-    query getHolders ($contract: String!, $network: EthereumNetwork, $list_of_receivers: String!) {
+    query getHolders ($contract: String!, $network: EthereumNetwork, $list_of_receivers: [String!]) {
       ethereum(network: $network) {
         address(
-          address: {in: [$list_of_receivers]}
+          address: {in: $list_of_receivers}
         ) {
           address
           balances(
