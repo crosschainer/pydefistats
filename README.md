@@ -10,7 +10,7 @@ Symbol\
 Holders\
 Last Exchanges on Specific Pair and on Specific DEX\
 Get Pairs and Pair Liquidity on Specific DEX\
-Get Last Price on Specific Pair and on Specific DEX (WIP)\
+Get Last Price on Specific Pair and on Specific DEX\
 OHLC Data on Specific Pair and on Specific DEX (WIP)\
 \
 **How to Install**\
