@@ -36,3 +36,8 @@ jobs:
         pip install .
         cd tests
         python GetTotalSupply.py
+    - name: Test getName
+      run: |
+        pip install .
+        cd tests
+        python getName.py
