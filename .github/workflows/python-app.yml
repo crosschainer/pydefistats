@@ -41,3 +41,8 @@ jobs:
         pip install .
         cd tests
         python getName.py
+    - name: Test getSymbol
+      run: |
+        pip install .
+        cd tests
+        python getSymbol.py
