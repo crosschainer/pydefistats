@@ -25,6 +25,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        pip install .
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
@@ -33,21 +34,17 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test getTotalSupply
       run: |
-        pip install .
         cd tests
         python GetTotalSupply.py
     - name: Test getName
       run: |
-        pip install .
         cd tests
         python getName.py
     - name: Test getSymbol
       run: |
-        pip install .
         cd tests
         python GetSymbol.py
     - name: Test getHolders
       run: |
-        pip install .
         cd tests
         python GetHolders.py
