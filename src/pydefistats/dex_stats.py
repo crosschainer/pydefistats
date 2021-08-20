@@ -207,7 +207,10 @@ def getPrice(network, exchange, contract: str, pairAddress):
         "pairAddress": pairAddress
     }
     result = client.execute(query, variable_values=params)
-    return(result["ethereum"]["dexTrades"][0]["buyAmountInUsd"] / result["ethereum"]["dexTrades"][0]["sellAmount"])
+    if(result["ethereum"]["dexTrades"][0]["buyAmountInUsd"] / result["ethereum"]["dexTrades"][0]["sellAmount"] != 0.0):
+        return(result["ethereum"]["dexTrades"][0]["buyAmountInUsd"] / result["ethereum"]["dexTrades"][0]["sellAmount"])
+    else:
+        return result["ethereum"]["dexTrades"][0]["sellAmountInUsd"] / result["ethereum"]["dexTrades"][0]["buyAmount"]
 
 def getOHLC(network, exchange, baseCurrency: str, quoteCurrency: str, limit):
     transport = AIOHTTPTransport(url="https://graphql.bitquery.io")
