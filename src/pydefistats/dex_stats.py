@@ -145,3 +145,65 @@ def getPairs(network, exchange, contract: str):
         if(y["currency"]["address"] in quote_currencies or y["currency"]["address"] == contract):
           pools.append([x["address"], y["currency"]["name"], y["value"]])
     return list(zip(pools,pools[1:]))
+
+def getPrice(network, exchange, contract: str, pairAddress):
+    transport = AIOHTTPTransport(url="https://graphql.bitquery.io")
+    client = Client(transport=transport, fetch_schema_from_transport=True)
+    query = gql(
+    """
+    query getLastExchanges ($network: EthereumNetwork, $contract: String!, $exchange: String!, $pairAddress: String!){
+      ethereum(network: $network) {
+        dexTrades(
+          options: {limit: 1, desc: "timeInterval.second"}
+          exchangeName: {is: $exchange}
+          baseCurrency: {is: $contract}
+          smartContractAddress: {is: $pairAddress}
+        ) {
+          transaction {
+            hash
+          }
+          date {
+            date
+          }
+          block {
+            height
+          }
+          buyAmount
+          buyAmountInUsd: buyAmount(in: USD)
+          buyCurrency {
+            symbol
+            address
+          }
+          sellAmount
+          sellAmountInUsd: sellAmount(in: USD)
+          sellCurrency {
+            symbol
+            address
+          }
+          sellAmountInUsd: sellAmount(in: USD)
+          tradeAmount(in: USD)
+          transaction {
+            gasValue
+            gasPrice
+            gas
+          }
+          timeInterval {
+            second
+          }
+        }
+      }
+    }
+
+    """
+    )
+
+    params = {
+        "network": network,
+        "contract": contract,
+        "exchange": exchange,
+        "pairAddress": pairAddress
+    }
+    result = client.execute(query, variable_values=params)
+    #print(result["ethereum"]["dexTrades"][0]["buyAmountInUsd"])
+    #print(result["ethereum"]["dexTrades"][0]["sellAmount"])
+    return(result["ethereum"]["dexTrades"][0]["buyAmountInUsd"] / result["ethereum"]["dexTrades"][0]["sellAmount"])
