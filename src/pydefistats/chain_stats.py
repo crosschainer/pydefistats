@@ -141,7 +141,7 @@ def getHolders(network, contract: str):
     list_of_receivers=[]
     for x in receivers:
         list_of_receivers.append(x["receiver"]["address"])
-    list_of_receivers str(list_of_receivers).replace("\'", "\"")
+    list_of_receivers = str(list_of_receivers).replace("\'", "\"")
     
     transport = AIOHTTPTransport(url="https://graphql.bitquery.io")
     client = Client(transport=transport, fetch_schema_from_transport=True)
