@@ -62,3 +62,29 @@ def getTotalSupply(network, contract: str):
         return total_supply
     else:
         return total_supply
+    
+def getName(network, contract: str):
+    transport = AIOHTTPTransport(url="https://graphql.bitquery.io")
+    client = Client(transport=transport, fetch_schema_from_transport=True)
+    query = gql(
+    """
+    query getName ($contract: String!, $network: EthereumNetwork) {
+      ethereum(network: $network) {
+        address(address: {is: $contract}) {
+          smartContract {
+            currency {
+              name
+            }
+          }
+        }
+      }
+    }
+    """
+    )
+
+    params = {
+        "network": network,
+        "contract": contract
+    }
+    result = client.execute(query, variable_values=params)
+    return(result["ethereum"]["address"][0]["smartContract"]["currency"]["name"])
