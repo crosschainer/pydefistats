@@ -175,6 +175,6 @@ def getHolders(network, contract: str):
     holders_with_amounts = result["ethereum"]["address"]
     holders_amount = 0
     for x in holders_with_amounts:
-        if(x["balances"]["amount"]>0):
+        if(x["balances"][0]["value"]>0):
             holders_amount = holders_amount + 1
     return holders_amount
