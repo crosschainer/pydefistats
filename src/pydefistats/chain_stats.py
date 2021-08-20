@@ -141,7 +141,7 @@ def getHolders(network, contract: str):
     list_of_receivers=[]
     for x in receivers:
         list_of_receivers.append(x["receiver"]["address"])
-    list_of_receivers = str(list_of_receivers).replace("\'", "\"")
+    #list_of_receivers = str(list_of_receivers).replace("\'", "\"")
     ##Test
     print(list_of_receivers)
     
