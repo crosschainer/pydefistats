@@ -216,7 +216,7 @@ def getOHLC(network, exchange, baseCurrency: str, quoteCurrency: str, limit):
         dexTrades(
           options: {limit: $limit, desc: "timeInterval.minute"}
           
-          exchangeName: {is: $network}
+          exchangeName: {is: $exchange}
           baseCurrency: {is: $baseCurrency}
           quoteCurrency: {is: $quoteCurrency}
         ) {
