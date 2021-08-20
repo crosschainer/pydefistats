@@ -88,3 +88,29 @@ def getName(network, contract: str):
     }
     result = client.execute(query, variable_values=params)
     return(result["ethereum"]["address"][0]["smartContract"]["currency"]["name"])
+
+def getSymbol(network, contract: str):
+    transport = AIOHTTPTransport(url="https://graphql.bitquery.io")
+    client = Client(transport=transport, fetch_schema_from_transport=True)
+    query = gql(
+    """
+    query getSymbol ($contract: String!, $network: EthereumNetwork) {
+      ethereum(network: $network) {
+        address(address: {is: $contract}) {
+          smartContract {
+            currency {
+              symbol
+            }
+          }
+        }
+      }
+    }
+    """
+    )
+
+    params = {
+        "network": network,
+        "contract": contract
+    }
+    result = client.execute(query, variable_values=params)
+    return(result["ethereum"]["address"][0]["smartContract"]["currency"]["symbol"])
