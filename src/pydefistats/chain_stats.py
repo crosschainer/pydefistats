@@ -114,3 +114,31 @@ def getSymbol(network, contract: str):
     }
     result = client.execute(query, variable_values=params)
     return(result["ethereum"]["address"][0]["smartContract"]["currency"]["symbol"])
+
+def getHolders(network, contract: str):
+    transport = AIOHTTPTransport(url="https://graphql.bitquery.io")
+    client = Client(transport=transport, fetch_schema_from_transport=True)
+    query = gql(
+    """
+    query getReceivers ($contract: String!, $network: EthereumNetwork) {
+    ethereum(network: $network) {
+            transfers(
+              currency: {in: $contract}
+            ) {
+              receiver{address}
+            }
+          }
+    }
+    """
+    )
+
+    params = {
+        "network": network,
+        "contract": contract
+    }
+    result = client.execute(query, variable_values=params)
+    receivers = result["ethereum"]["transfers"]
+    list_of_receivers=[]
+    for x in receivers:
+        list_of_receivers.append(x["receiver"]["address"])
+    return list_of_receivers
