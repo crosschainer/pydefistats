@@ -6,7 +6,7 @@ Total Supply\
 Name\
 Symbol\
 Holders\
-Last Exchanges\
+Last Exchanges on Specific DEX\
 \
 How to Install\
 \
