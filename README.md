@@ -9,6 +9,7 @@ Name\
 Symbol\
 Holders\
 Last Exchanges on Specific DEX\
+OHLC\
 \
 **How to Install**\
 \
