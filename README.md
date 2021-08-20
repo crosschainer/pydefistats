@@ -6,6 +6,7 @@ Total Supply\
 Name\
 Symbol\
 Holders\
+Last Exchanges\
 \
 How to Install\
 \
