@@ -123,7 +123,7 @@ def getHolders(network, contract: str):
     query getReceivers ($contract: String!, $network: EthereumNetwork) {
     ethereum(network: $network) {
             transfers(
-              currency: {in: $contract}
+              currency: {is: $contract}
             ) {
               receiver{address}
             }
