@@ -1,17 +1,18 @@
 from gql import gql, Client
 from gql.transport.aiohttp import AIOHTTPTransport
 
-def getLastExchanges(network, exchange, contract: str, limit):
+def getLastExchanges(network, exchange, contract: str, limit, pairAddress):
     transport = AIOHTTPTransport(url="https://graphql.bitquery.io")
     client = Client(transport=transport, fetch_schema_from_transport=True)
     query = gql(
     """
-    query getLastExchanges ($network: EthereumNetwork, $contract: String!, $exchange: String!, $limit: Int){
+    query getLastExchanges ($network: EthereumNetwork, $contract: String!, $exchange: String!, $limit: Int, $pairAddress: String!){
       ethereum(network: $network) {
         dexTrades(
           options: {limit: $limit, desc: "timeInterval.second"}
           exchangeName: {is: $exchange}
           baseCurrency: {is: $contract}
+          smartContractAddress: {is: $pairAddress}
         ) {
           transaction {
             hash
@@ -55,7 +56,8 @@ def getLastExchanges(network, exchange, contract: str, limit):
         "network": network,
         "contract": contract,
         "exchange": exchange,
-        "limit": limit
+        "limit": limit,
+        "pairAddress": pairAddress
     }
     result = client.execute(query, variable_values=params)
     return(result["ethereum"]["dexTrades"])
