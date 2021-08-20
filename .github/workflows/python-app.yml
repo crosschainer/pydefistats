@@ -52,15 +52,15 @@ jobs:
       run: |
         cd tests
         python GetLastExchanges.py
-    - name: Test GetPairsAndLiquidity.py
+    - name: Test getPairsAndLiquidity
       run: |
         cd tests
         python GetPairsAndLiquidity.py
-    - name: Test GetPrice.py
+    - name: Test getPrice
       run: |
         cd tests
         python GetPrice.py
-    - name: Test GetOHLC.py
+    - name: Test getOHLC
       run: |
         cd tests
         python GetOHLC.py
