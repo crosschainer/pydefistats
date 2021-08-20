@@ -1,5 +1,7 @@
+**pydefistats**
 [![Tests](https://github.com/crosschainer/pydefistats/actions/workflows/python-app.yml/badge.svg)](https://github.com/crosschainer/pydefistats/actions/workflows/python-app.yml)
 
+This is Python 3!\
 Currently you can get the following data on ETH, BSC, MATIC:\
 \
 Total Supply\
@@ -8,7 +10,7 @@ Symbol\
 Holders\
 Last Exchanges on Specific DEX\
 \
-How to Install\
+**How to Install**\
 \
 Clone Repo\
 CD into it\
