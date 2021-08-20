@@ -141,4 +141,38 @@ def getHolders(network, contract: str):
     list_of_receivers=[]
     for x in receivers:
         list_of_receivers.append(x["receiver"]["address"])
-    return list_of_receivers
+    list_of_receivers str(list_of_receivers).replace("\'", "\"")
+    
+    transport = AIOHTTPTransport(url="https://graphql.bitquery.io")
+    client = Client(transport=transport, fetch_schema_from_transport=True)
+    query = gql(
+    """
+    query getHolders ($contract: String!, $network: EthereumNetwork, $list_of_receivers: String!) {
+      ethereum(network: $network) {
+        address(
+          address: {in: $list_of_receivers}
+        ) {
+          address
+          balances(
+            currency: {is: $contract}
+          ) {
+            value
+          }
+        }
+      }
+    }
+    """
+    )
+
+    params = {
+        "network": network,
+        "contract": contract,
+        "list_of_receivers": list_of_receivers
+    }
+    result = client.execute(query, variable_values=params)
+    holders_with_amounts = result["ethereum"]["address"]
+    holders_amount = 0
+    for x in holders_with_amounts:
+        if(x["balances"]["amount"]>0):
+            holders_amount = holders_amount + 1
+    return holders_amount
