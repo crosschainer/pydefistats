@@ -150,7 +150,7 @@ def getHolders(network, contract: str):
     query getHolders ($contract: String!, $network: EthereumNetwork, $list_of_receivers: String!) {
       ethereum(network: $network) {
         address(
-          address: {in: $list_of_receivers}
+          address: {in: [$list_of_receivers]}
         ) {
           address
           balances(
