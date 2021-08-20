@@ -39,7 +39,7 @@ jobs:
     - name: Test getName
       run: |
         cd tests
-        python getName.py
+        python GetName.py
     - name: Test getSymbol
       run: |
         cd tests
