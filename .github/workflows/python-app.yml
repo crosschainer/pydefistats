@@ -52,3 +52,7 @@ jobs:
       run: |
         cd tests
         python GetLastExchanges.py
+    - name: Test GetPairsAndLiquidity.py
+      run: |
+        cd tests
+        python GetPairsAndLiquidity.py
