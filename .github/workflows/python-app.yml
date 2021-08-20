@@ -45,4 +45,9 @@ jobs:
       run: |
         pip install .
         cd tests
-        python getSymbol.py
+        python GetSymbol.py
+    - name: Test getHolders
+      run: |
+        pip install .
+        cd tests
+        python GetHolders.py
