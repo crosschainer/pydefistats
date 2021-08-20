@@ -1,7 +1,7 @@
 **pydefistats**\
 [![Tests](https://github.com/crosschainer/pydefistats/actions/workflows/python-app.yml/badge.svg)](https://github.com/crosschainer/pydefistats/actions/workflows/python-app.yml)
 
-bitgraph.io wrapper
+bitgraph.io wrapper\
 Tested with Python 3.9!\
 Currently you can get the following data on ETH, BSC, MATIC:\
 \
