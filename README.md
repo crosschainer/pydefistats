@@ -9,7 +9,8 @@ Name\
 Symbol\
 Holders\
 Last Exchanges on Specific DEX\
-OHLC\
+Pair Liquidity (WIP)\
+OHLC (WIP)\
 \
 **How to Install**\
 \
