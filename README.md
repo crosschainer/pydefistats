@@ -7,6 +7,8 @@ Name\
 Symbol\
 Holders\
 \
+How to Install\
+\
 Clone Repo\
 CD into it\
 Install with pip install .\
