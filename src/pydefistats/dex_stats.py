@@ -140,11 +140,14 @@ def getPairs(network, exchange, contract: str):
     result = client.execute(query, variable_values=params)
     balances = (result["ethereum"]["address"])
     pools=[]
+    final_pools=[]
     for x in balances:
       for y in x["balances"]:
         if(y["currency"]["address"] in quote_currencies or y["currency"]["address"] == contract):
           pools.append([x["address"], y["currency"]["name"], y["value"], y["currency"]["address"]])
-    return pools
+    for v, w in zip(pools[::2],pools[1::2]):
+      final_pools.append([v,w])
+    return final_pools
 
 def getPrice(network, exchange, contract: str, pairAddress):
     transport = AIOHTTPTransport(url="https://graphql.bitquery.io")
