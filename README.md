@@ -9,8 +9,9 @@ Name\
 Symbol\
 Holders\
 Last Exchanges on Specific DEX\
-Pair Liquidity (WIP)\
-OHLC (WIP)\
+Get Pairs and Pair Liquidity on Specific DEX (WIP)\
+Get Average Price on Specific DEX (WIP)\
+OHLC Data on Specific Pair and on Specific DEX (WIP)\
 \
 **How to Install**\
 \
