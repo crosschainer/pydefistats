@@ -144,7 +144,7 @@ def getPairs(network, exchange, contract: str):
       for y in x["balances"]:
         if(y["currency"]["address"] in quote_currencies or y["currency"]["address"] == contract):
           pools.append([x["address"], y["currency"]["name"], y["value"], y["currency"]["address"]])
-    return list(zip(pools,pools[1:]))
+    return pools
 
 def getPrice(network, exchange, contract: str, pairAddress):
     transport = AIOHTTPTransport(url="https://graphql.bitquery.io")
