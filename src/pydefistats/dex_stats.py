@@ -143,7 +143,7 @@ def getPairs(network, exchange, contract: str):
     for x in balances:
       for y in x["balances"]:
         if(y["currency"]["address"] in quote_currencies or y["currency"]["address"] == contract):
-          pools.append([x["address"], y["currency"]["name"], y["value"]])
+          pools.append([x["address"], y["currency"]["name"], y["value"], y["currency"]["address"]])
     return list(zip(pools,pools[1:]))
 
 def getPrice(network, exchange, contract: str, pairAddress):
@@ -204,6 +204,49 @@ def getPrice(network, exchange, contract: str, pairAddress):
         "pairAddress": pairAddress
     }
     result = client.execute(query, variable_values=params)
-    #print(result["ethereum"]["dexTrades"][0]["buyAmountInUsd"])
-    #print(result["ethereum"]["dexTrades"][0]["sellAmount"])
     return(result["ethereum"]["dexTrades"][0]["buyAmountInUsd"] / result["ethereum"]["dexTrades"][0]["sellAmount"])
+
+def getOHLC(network, exchange, baseCurrency: str, quoteCurrency: str, limit):
+    transport = AIOHTTPTransport(url="https://graphql.bitquery.io")
+    client = Client(transport=transport, fetch_schema_from_transport=True)
+    query = gql(
+    """
+    query getOHLC ($network: EthereumNetwork, $baseCurrency: String!, $exchange: String!, $quoteCurrency: String!, $limit: Int){
+      ethereum(network: $network) {
+        dexTrades(
+          options: {limit: $limit, desc: "timeInterval.minute"}
+          
+          exchangeName: {is: $network}
+          baseCurrency: {is: $baseCurrency}
+          quoteCurrency: {is: $quoteCurrency}
+        ) {
+          timeInterval {
+            minute(count: 5)
+          }
+          high: quotePrice(calculate: maximum)
+          low: quotePrice(calculate: minimum)
+          open: minimum(of: block, get: quote_price)
+          close: maximum(of: block, get: quote_price)
+          baseCurrency {
+            name
+          }
+          quoteCurrency {
+            name
+          }
+        }
+      }
+    }
+
+
+    """
+    )
+
+    params = {
+        "network": network,
+        "baseCurrency": baseCurrency,
+        "exchange": exchange,
+        "quoteCurrency": quoteCurrency,
+        "limit": limit
+    }
+    result = client.execute(query, variable_values=params)
+    return(result["ethereum"]["dexTrades"])
